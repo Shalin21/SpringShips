@@ -20,12 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Controller for {@link net.proselyte.springsecurityapp.model.User}'s pages.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
 
 @Controller
 public class UserController {
@@ -100,15 +94,25 @@ public class UserController {
         return "shipInfo";
     }
 
-    @RequestMapping(value = "/shipInfo", method = RequestMethod.POST)
-    public String calcView(Model model, @RequestParam String a, @RequestParam String b){
-        int a1 = Integer.parseInt(a);
-        int b1 = Integer.parseInt(b);
+    @RequestMapping(value = "/shipInfo",params="action1", method = RequestMethod.POST)
+    public String calcView(HttpServletRequest request, Model model, @RequestParam String gross, @RequestParam String nett){
+        int a1 = Integer.parseInt(gross);
+        int b1 = Integer.parseInt(nett);
+        int b2 = Integer.parseInt(request.getParameter("lbp"));
         System.out.println(a1);
-        model.addAttribute("result", a1+b1);
+        model.addAttribute("result", a1+b1+b2);
         return "calc";
     }
 
+    @RequestMapping(value = "/shipInfo",params="action2", method = RequestMethod.POST)
+    public String calcView2(HttpServletRequest request, Model model, @RequestParam String gross, @RequestParam String nett){
+        int a1 = Integer.parseInt(gross);
+        int b1 = Integer.parseInt(nett);
+        int b2 = Integer.parseInt(request.getParameter("lbp"));
+        System.out.println(a1);
+        model.addAttribute("result", a1-b1-b2);
+        return "calc";
+    }
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         return "welcome";
