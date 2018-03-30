@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -12,8 +13,16 @@
 </head>
 <body>
 <div>
-    <h2>Hello</h2>
-    <label>${result}</label>
+    <c:choose>
+        <c:when test="${result == null}">
+            <h2>Hello NoNAMER</h2>
+        </c:when>
+        <c:otherwise>
+            <h2>Hello ${result}</h2>
+        </c:otherwise>
+    </c:choose>
+
+
 </div>
 </body>
 </html>
